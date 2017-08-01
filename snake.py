@@ -98,7 +98,17 @@ def move_snake():
     pos_list.append(my_pos)
     new_stamp=snake.stamp()
     stamp_list.append(new_stamp)
-    #special place
+
+    if snake.pos() in food_pos:
+        food_ind=food_pos.index(snake.pos())
+        food.clearstamp(food_stamps[food_ind])
+        food_pos.pop(food_ind)
+        food_stamps.pop(food_ind)
+        stamp_list.append(snake.pos())
+        make_food()
+        print("You have eaten the food!")
+        
+    
     old_stamp=stamp_list.pop(0)
     snake.clearstamp(old_stamp)
     pos_list.pop(0)
@@ -127,6 +137,27 @@ food.shape("circle")
 
 food_pos=[(100,100),(-100,100),(-100,-100),(100,-100)]
 food_stamps=[]
+snake_pos=[]
 
+for this_food_pos in food_pos:
+    food.goto(this_food_pos)
+    fd_stamp=food.stamp()
+    food_stamps.append(fd_stamp)
+    food.hideturtle()
+
+def make_food():
+    min_x=-int(SIZE_X/2/SQUARE_SIZE)+1
+    max_x=int(SIZE_X/2/SQUARE_SIZE)-1
+    min_y=-int(SIZE_Y/2/SQUARE_SIZE)-1
+    max_y=int(SIZE_Y/2/SQUARE_SIZE)+1
+
+    food_x=random.randint(min_x,max_x)*SQUARE_SIZE
+    food_y=random.randint(min_y,max_y)*SQUARE_SIZE
+    food.goto(food_x,food_y)
+    food_pos.append(food.pos())
+    food_stamps.append(food.stamp())
+    
+
+    
     
     
