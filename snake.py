@@ -10,7 +10,7 @@ turtle.setup(SIZE_X,SIZE_Y)
 turtle.penup()
 
 SQUARE_SIZE=20
-START_LENGTH=2
+START_LENGTH=1
 
 pos_list = []
 stamp_list=[]
@@ -129,15 +129,17 @@ def move_snake():
     elif new_y_pos >=UP_EDGE:
         print("You hit the top edge! Game Over!")
         quit()
+    if snake.pos() in pos_list[0:-1]:
+        quit()
     turtle.ontimer(move_snake,TIME_STEP)
 move_snake()
 
 food = turtle.clone()
 food.shape("circle")
 
-food_pos=[(100,100),(-100,100),(-100,-100),(100,-100)]
+food_pos=[food.pos()]
 food_stamps=[]
-snake_pos=[]
+
 
 for this_food_pos in food_pos:
     food.goto(this_food_pos)
@@ -156,6 +158,12 @@ def make_food():
     food.goto(food_x,food_y)
     food_pos.append(food.pos())
     food_stamps.append(food.stamp())
+
+
+    
+
+    
+        
     
 
     
